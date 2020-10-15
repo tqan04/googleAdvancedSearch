@@ -1,30 +1,26 @@
 package example;		
-
-import org.testng.Assert;		
+	
 import org.testng.annotations.Test;
 
 import org.testng.annotations.BeforeTest;	
 import org.testng.annotations.AfterTest;		
 public class Main {			
+	    static GoogleAdvancedSearch googleAdvanced = new GoogleAdvancedSearch();
+	    
 		@Test				
 		public void mainCase() {	
 			
 		//Access Google Advanced Search
-			Initialize.initialize(CommonConstant.GOOGLE_ADVANCED_SEARCH);
+			googleAdvanced.accessSite();
 			
 		//Input fields and search
-			CommonFunction.typeText(CommonConstant.ALL_THESE_WORDS_XPATH, CommonConstant.ALL_THESE_WORDS_TEXT);
-			
-			CommonFunction.clickElement(CommonConstant.LANGUAGE_LIST_XPATH);
-			CommonFunction.clickElement(CommonConstant.VIETNAMESE_LANGUAGE_XPATH);
-			
-			CommonFunction.clickElement(CommonConstant.LAST_UPDATE_LIST_XPATH);
-			CommonFunction.clickElement(CommonConstant.PAST_24HOURS_XPATH);
-			
-			CommonFunction.clickElement(CommonConstant.ADVANCED_SEARCH_BUTTON_XPATH);
+			googleAdvanced.allTheseWordsField(CommonConstant.ALL_THESE_WORDS_XPATH, CommonConstant.ALL_THESE_WORDS_TEXT);
+			googleAdvanced.language(CommonConstant.LANGUAGE_LIST_XPATH,CommonConstant.VIETNAMESE_LANGUAGE_XPATH);
+			googleAdvanced.lastUpdateField(CommonConstant.LAST_UPDATE_LIST_XPATH, CommonConstant.PAST_24HOURS_XPATH);
+			googleAdvanced.clickAdvancedSearchButton();
 			
 		//Check result	
-			Assert.assertTrue(CommonFunction.getTextFromElement(CommonConstant.FIRST_LINK_RESULT_XPATH).contains("COVID-19")); 	
+			googleAdvanced.checkFirstContentResultPage(CommonConstant.FIRST_LINK_RESULT_XPATH,"COVID-19"); 	
 		}	
 		
 		@BeforeTest

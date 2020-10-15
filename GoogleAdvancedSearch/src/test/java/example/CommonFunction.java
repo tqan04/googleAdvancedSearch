@@ -3,6 +3,7 @@ package example;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
 
 import example.Initialize;
 
@@ -25,6 +26,12 @@ public class CommonFunction extends Initialize {
 	public static String getTextFromElement(String xpathElement) {
 		WebElement element = driver.findElement(By.xpath(xpathElement));
 		return(element.getText());
+	}
+	
+	public static void checkTitle(String url, String ExpectedTitle){
+		driver.get(url);  
+		String title = driver.getTitle();				 
+		Assert.assertTrue(title.contains(ExpectedTitle)); 		
 	}
 }
 	

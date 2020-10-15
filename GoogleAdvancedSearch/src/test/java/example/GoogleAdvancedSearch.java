@@ -5,7 +5,7 @@ import org.testng.Assert;
 public class GoogleAdvancedSearch {
 	
 	public void accessSite(){
-		Initialize.initialize(CommonConstant.GOOGLE_ADVANCED_SEARCH);
+		Initialize.accessPage(CommonConstant.GOOGLE_ADVANCED_SEARCH);
 	}
 	
 	public void allTheseWordsField(String xpath, String text){

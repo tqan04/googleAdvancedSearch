@@ -5,8 +5,10 @@
     <classes>
       <class name="example.Main">
         <methods>
+          <include name="testDataProviderExcel" invocation-numbers="0 1 2"/>
           <include name="mainCase"/>
           <include name="beforeTest"/>
+          <include name="testDataProvider" invocation-numbers="0 1 2"/>
           <include name="afterTest"/>
         </methods>
       </class> <!-- example.Main -->

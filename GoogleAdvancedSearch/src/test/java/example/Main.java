@@ -1,13 +1,16 @@
 package example;		
 	
 import org.testng.annotations.Test;
+import java.io.IOException;
 
-import org.testng.annotations.BeforeTest;	
-import org.testng.annotations.AfterTest;		
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;	
+import org.testng.annotations.DataProvider;
+
 public class Main {			
 	    static GoogleAdvancedSearch googleAdvanced = new GoogleAdvancedSearch();
 	    
-		@Test				
+		@Test			
 		public void mainCase() {	
 			
 		//Access Google Advanced Search
@@ -23,11 +26,37 @@ public class Main {
 			googleAdvanced.checkFirstContentResultPage(CommonConstant.FIRST_LINK_RESULT_XPATH,"COVID-19"); 	
 		}	
 		
-		@BeforeTest
-		public void beforeTest() {
+		@DataProvider
+	    public static Object[][] url() {
+	    	System.out.println("DataProvider:url");
+	        return new Object[][] {{"http://www.google.com", "Google"}, {"http://www.bing.com", "Bing"}};
+	    }
+
+	    @DataProvider
+	    public static Object[][] dataFromExcel() throws IOException{
+	    	System.out.println("DataProvider:dataFromExcel");
+	    	return ReadExcel.readDataFromExcel("data\\url.xls", "Sheet1");
+	    }
+	    
+		@Test(groups={"_group1"},dataProvider="url")				
+		public void testDataProvider(String url, String ExpectedTitle) {	
+			System.out.println("Test:testDataProvider");
+			CommonFunction.checkTitle(url, ExpectedTitle);
+		}
+		
+		@Test(groups={"group1"},dataProvider="dataFromExcel")				
+		public void testDataProviderExcel(String url, String ExpectedTitle) {	
+			System.out.println("Test:testDataProviderExcel");
+			CommonFunction.checkTitle(url, ExpectedTitle);
 		}		
 		
-		@AfterTest
+		
+		@BeforeTest(groups={"group1"})
+		public void beforeTest() {
+			Initialize.initialize();
+		}		
+		
+		@AfterTest(groups={"group1"})
 		public void afterTest() {
 			Initialize.quitDriver();	
 		}		

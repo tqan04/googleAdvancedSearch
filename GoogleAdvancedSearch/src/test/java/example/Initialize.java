@@ -23,11 +23,12 @@ public class Initialize {
 		ChromeOptions options = new ChromeOptions();
 		options.setCapability("proxy", proxy);
 		
-	    driver = new ChromeDriver(options);  
+	    	driver = new ChromeDriver(options);  
 		driver.manage().window().maximize();
 		
 		myWait = new WebDriverWait(driver, CommonConstant.WAITING_TIME);
 		driver.manage().timeouts().implicitlyWait(CommonConstant.WAITING_TIME, TimeUnit.SECONDS);
+		CommonFunction.driver = driver;
 	}
 	
 	public static void accessPage(String nameOfPage){

@@ -7,7 +7,8 @@ import org.testng.Assert;
 
 import example.Initialize;
 
-public class CommonFunction extends Initialize {
+public class CommonFunction {
+	public static Webdriver driver;
 	public static void typeText(String xpathElement, String value) {
 		WebElement element = driver.findElement(By.xpath(xpathElement));
 		element.clear();
